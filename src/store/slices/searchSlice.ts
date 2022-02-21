@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import config from '../../config';
 
@@ -24,10 +24,6 @@ interface SearchResult {
   shortDescription: string;
   description: string;
 }
-
-// interface SearchResultResponse {
-//   data: SearchResult[];
-// }
 
 const apiSearch = createAsyncThunk('search/search', async ({ term }: { term: string }) => {
   const response = await axios({
@@ -58,11 +54,12 @@ const searchSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(apiSearch.pending, (state) => {
+    builder.addCase(apiSearch.pending, (state, action) => {
       state.pending = true;
+      state.term = action.meta.arg.term;
     });
-    builder.addCase(apiSearch.fulfilled, (state, action: PayloadAction<object>) => {
-      state.data = action.payload as SearchResult[];
+    builder.addCase(apiSearch.fulfilled, (state, { payload }) => {
+      state.data = payload.data;
       state.pending = false;
     });
     builder.addCase(apiSearch.rejected, (state, action) => {

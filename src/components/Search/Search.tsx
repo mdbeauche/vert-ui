@@ -29,6 +29,17 @@ const Search = () => {
         </form>
       </div>
       <div>SearchState: {JSON.stringify(searchState)}</div>
+      <div>
+        {searchState.term !== '' && searchState.data.length > 0 && (
+          <>
+            {searchState.data.map((result) => (
+              <div key={result.title}>
+                {result.title},{result.photo},{result.shortDescription},{result.description}
+              </div>
+            ))}
+          </>
+        )}
+      </div>
     </>
   );
 };
