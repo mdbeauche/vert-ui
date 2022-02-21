@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import { apiSearch, SearchState } from '../../store/slices/searchSlice';
+import { useTypedSelector, useTypedDispatch } from '../../hooks/typedRedux';
 
 const Search = () => {
-  const [searchResults, setSearchResults] = useState<Array<string>>([]);
+  const dispatch = useTypedDispatch();
+  const searchState = useTypedSelector((state) => state.search as SearchState);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -13,24 +14,7 @@ const Search = () => {
 
     const search = target.search.value;
 
-    interface SearchResult {
-      title: string;
-      photo: string;
-      shortDescription: string;
-      description: string;
-    }
-
-    interface SearchResultResponse {
-      data: SearchResult[];
-    }
-
-    axios.post<SearchResultResponse>('http://localhost:5000/search', { term: search }).then((response) => {
-      console.log('Server response:');
-      console.log(response.data);
-    });
-
-    console.log('search: ', search);
-    setSearchResults([search]);
+    dispatch(apiSearch({ term: search }));
   };
 
   return (
@@ -44,7 +28,7 @@ const Search = () => {
           <input type="submit" value="Submit" />
         </form>
       </div>
-      <div>Results: {searchResults}</div>
+      <div>SearchState: {JSON.stringify(searchState)}</div>
     </>
   );
 };
