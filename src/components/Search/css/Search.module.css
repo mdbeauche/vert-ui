@@ -1,0 +1,50 @@
+.Search {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.SearchResults {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.SearchResult {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.SearchResultLeft {
+  width: 20%;
+  background-color: lime;
+}
+
+.SearchResultLeft img {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  flex: 0 0 auto;
+  max-width: 90%;
+  max-height: 90%;
+  align-self: center;
+  justify-content: center;
+  margin: auto;
+  object-fit: scale-down;
+}
+
+.SearchResultRight {
+  width: 80%;
+  text-align: left;
+  background-color: violet;
+  padding: 10px;
+}

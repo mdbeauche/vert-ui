@@ -14,7 +14,7 @@ const routes = [
     component: Search,
   },
   {
-    path: '/result/:id',
+    path: '/result/:title',
     name: 'ResultPage',
     component: ResultPage,
   },
