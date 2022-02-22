@@ -8,7 +8,7 @@ const Search = () => {
   const dispatch = useTypedDispatch();
   const searchState = useTypedSelector((state) => state.search as SearchState);
 
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState(searchState.term);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -35,7 +35,7 @@ const Search = () => {
       <div>
         <form onSubmit={handleSubmit}>
           <label>
-            Search:&nbsp;
+            Search:
             <input type="text" name="search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
           </label>
           &nbsp;
@@ -45,7 +45,7 @@ const Search = () => {
             type="reset"
             value="Reset"
             onClick={handleReset}
-            style={{ visibility: searchInput !== '' ? 'visible' : 'hidden' }}
+            style={{ visibility: searchInput !== '' || searchState.data.length > 0 ? 'visible' : 'hidden' }}
           />
         </form>
       </div>
